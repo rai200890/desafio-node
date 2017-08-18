@@ -1,0 +1,21 @@
+version: '3'
+services:
+  web:
+    build: .
+    command: npm start
+    container_name: cs-desafio-node-web
+    links:
+      - db
+    depends_on:
+      - db
+    volumes:
+      - .:/usr/app/
+      - /usr/app/node_modules
+    ports:
+      - "3000:3000"
+    env_file: .env
+  db:
+    image: mongo:3.0.15
+    container_name: cs-desafio-node-db
+    ports:
+      - "27017:27017"
