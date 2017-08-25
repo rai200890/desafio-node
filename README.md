@@ -26,7 +26,7 @@ Segue a documentação dos endpoints:
        }
     ]
   }
-  
+
 - Usar status codes de acordo
 - Em caso de sucesso irá retornar um usuário mais os campos:
   - `id`: id do usuário (pode ser o próprio gerado pelo banco, porém seria interessante se fosse um GUID)
@@ -56,7 +56,7 @@ Segue a documentação dos endpoints:
 
 ## Requisitos
 
-- persitência de dados
+- Persistência de dados
 - Sistema de build
     Gestão de dependências via gerenciador de pacotes
     Utilizar um task runner para realização de build

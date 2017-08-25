@@ -1,56 +1,40 @@
 import express from "express"
-import logger from "morgan"
-import db from "../db"
-import bodyParser from "body-parser"
+
+import User from "../models/user"
+import {requireJWT} from "../auth/middleware"
+import {UnknownUserError} from "../errors"
+import {user} from "../permissions"
+import {UserResponse} from "../presenters/users"
 
 const router = express.Router()
-const User = db.model("User")
 
-
-router.get("/:id", function(req, res, next) {
-  User.findById(req.params.id, (err, user) => {
-    if (user) {
-      res.json({
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        phones: user.phones.map((phone) => {
-          return {area_code: phone.area_code, number: phone.number}
-        }),
-        data_atualizacao: user.updatedAt,
-        data_criacao: user.createdAt,
-        ultimo_login: user.createdAt
-      })
-    }
-    if (err){
-      err.status = 404
-      err.message = "resource not found"
-      next(err)
-    }
-  })
+router.get("/:id", requireJWT, user.can("view_user_details"), (req, res, next) => {
+    User.findById(req.params.id).then((user) => {
+        let response = UserResponse(user)
+        delete response["token"]
+        res.json(response)
+    }).catch(() => {
+        next(new UnknownUserError())
+    })
 })
 
 router.post("/", function(req, res, next) {
-  let user = new User(req.body)
-  user.save((err, user) => {
-    if (user) {
-      res.json({
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        phones: user.phones.map((phone) => {
-          return {area_code: phone.area_code, number: phone.number}
+    let params = req.body
+    let data = {
+        name: params["nome"],
+        email: params["email"],
+        phones: (params["telefones"] || []).map((phone) => {
+            return {area_code: phone.ddd, number: phone.numero}
         }),
-        data_atualizacao: user.updatedAt,
-        data_criacao: user.createdAt,
-        ultimo_login: user.createdAt
-      })
+        password: params["senha"]
     }
-    if (err) {
-      err.status = 400
-      next(err)
-    }
-  })
+    User.createUserWithToken(data).then(function(user){
+        res.json(UserResponse(user))
+    }).catch((err) => {
+        err.status = 400
+        next(err)
+    })
+
 })
 
 module.exports = router
