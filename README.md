@@ -1,5 +1,28 @@
 # Desafio node.js Concrete Solutions
 
+## Build:
+
+1. Crie um arquivo .env baseado no .env.sample.
+
+2. Construir o ambiente de desenvolvimento
+
+```
+  docker-compose up
+```
+
+## Test:
+
+```
+  docker-compose exec web npm test
+```
+
+## Endpoints:
+
+- Criação de cadastro - POST /users
+- Buscar usuário - GET /users
+- Sign Up - POST /login
+
+----------------------------------------------------------------------------------------
 Crie um aplicativo backend que exporá uma API RESTful de criação de sing up/sign in.
 
 Todos os endpoints devem somente aceitar e somente enviar JSONs. O servidor deverá retornar JSON para os casos de endpoint não encontrado também.
