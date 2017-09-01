@@ -31,7 +31,7 @@ passport.use(JWTStrategy)
 app.use(passport.initialize())
 app.use(user.middleware())
 
-module.exports = {
-    app: app,
-    db: db
+export {
+    app,
+    db
 }

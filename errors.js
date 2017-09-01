@@ -43,10 +43,10 @@ class InvalidSessionError extends Error {
     }
 }
 
-module.exports = {
-    InvalidCredentialsError: InvalidCredentialsError,
-    UserNotFoundError: UserNotFoundError,
-    UnauthorizedUserError: UnauthorizedUserError,
-    UnknownUserError: UnknownUserError,
-    InvalidSessionError: InvalidSessionError
+export {
+    InvalidCredentialsError,
+    UserNotFoundError,
+    UnauthorizedUserError,
+    UnknownUserError,
+    InvalidSessionError
 }

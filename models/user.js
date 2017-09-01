@@ -69,4 +69,4 @@ UserSchema.static("createUserWithToken", function(params, callback) {
         }).then(callback)
 })
 
-module.exports = mongoose.model("User", UserSchema)
+export default mongoose.model("User", UserSchema)

@@ -25,6 +25,4 @@ const JWTStrategy = new Strategy(options, (req, jwt_payload, done) => {
         })
 })
 
-module.exports = {
-    JWTStrategy: JWTStrategy
-}
+export {JWTStrategy}

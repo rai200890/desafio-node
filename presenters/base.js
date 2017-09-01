@@ -5,9 +5,7 @@ function rejectFields(source){
     return source
 }
 
-module.exports = {
-    Schema(options){
-        let callAbstraction = (input) => { return abstraction(options)(input) }
-        return (input) => { return rejectFields(callAbstraction(input)) }
-    }
+export function Schema(options){
+    let callAbstraction = (input) => { return abstraction(options)(input) }
+    return (input) => { return rejectFields(callAbstraction(input)) }
 }

@@ -26,6 +26,6 @@ const UserResponse = Schema({
     }
 })
 
-module.exports = {
-    UserResponse: UserResponse
+export {
+    UserResponse
 }

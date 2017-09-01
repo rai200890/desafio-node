@@ -16,7 +16,7 @@ function handleError(err, req, res, next) { // eslint-disable-line no-unused-var
     res.json({"mensagem": mensagem})
 }
 
-module.exports = {
-    handle404: handle404,
-    handleError: handleError
+export {
+    handle404,
+    handleError
 }
